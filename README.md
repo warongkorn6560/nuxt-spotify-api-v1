@@ -1,0 +1,1 @@
+# nuxt-spotify-api-v1
