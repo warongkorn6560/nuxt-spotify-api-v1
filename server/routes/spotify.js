@@ -40,30 +40,30 @@ router.get('/userinfo', async (req, res) => {
   console.log(access_token)
   spotifyApi.setAccessToken(access_token)
     try {
-      var result = await spotifyApi.getMe();
-      // console.log(result.body);
-      // res.status(200).send(result.body)
-      // const json = JSON.stringify(result);
-      const name = result.body.display_name;
-      const email = result.body.email;
-      const image = result.body.images[0].url;
-      res.json({ email, image, name });
+      var user = await spotifyApi.getMe();
+      var playlist = await spotifyApi.getUserPlaylists();
+      // console.log(user.body);
+      // res.status(200).send(user.body)
+      // const json = JSON.stringify(user);
+      const name = user.body.display_name;
+      const email = user.body.email;
+      const image = user.body.images[0].url;
+      res.json({ email, image, name, playlist });
     } catch (err) {
       res.status(400).send(err)
     }
 });
 
-router.get('/playlists', async (req,res) => {
+router.get('/playlist', async (req,res) => {
   try {
     var result = await spotifyApi.getUserPlaylists();
     // console.log(result.body);
     // res.status(200).send(result.body);
-    const text = JSON.stringify(result)
-    res.render('playlists', { title: text });
+    // const text = JSON.stringify(result)
+    // res.json({ result });
   } catch (err) {
     res.status(400).send(err)
   }
-
 });
 
 module.exports = router;

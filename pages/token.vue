@@ -1,7 +1,5 @@
 <template>
-  <div>
-    {{ $route.query.access_token }}
-  </div>
+  <div></div>
 </template>
 
 <script>
