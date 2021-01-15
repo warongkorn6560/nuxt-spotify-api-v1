@@ -1,5 +1,6 @@
 const { loadNuxt, build } = require('nuxt')
-const apiRoutes = require('./routes')
+const apiRoutes = require('./routes/index')
+const apiRoutesUser = require('./routes/spotify')
 
 const app = require('express')()
 const isDev = process.env.NODE_ENV !== 'production'
@@ -7,7 +8,8 @@ const port = process.env.PORT || 3000
 
 async function start() {
   const nuxt = await loadNuxt(isDev ? 'dev' : 'start')
-
+  
+  app.use('/spotify', apiRoutesUser)
   app.use('/api', apiRoutes)
   app.use(nuxt.render)
 
